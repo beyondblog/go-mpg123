@@ -21,6 +21,16 @@ func PlayMusic(file string) {
 	<-done
 }
 
+func GetLength(file string) int32 {
+	musicFile := C.CString(file)
+	defer C.free(unsafe.Pointer(musicFile))
+	return int32(C.get_file_length(musicFile))
+}
+
+func SetVolume(volume float64) int {
+	return int(C.set_volume(C.double(volume)))
+}
+
 //export play_finish
 func play_finish() {
 	done <- 1

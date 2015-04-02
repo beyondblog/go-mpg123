@@ -5,9 +5,29 @@
 static mpg123_handle *mpg_handle = NULL;
 static int done;
 static int _init = 0;
+static double m_volume;
 
 static void init();
 
+
+off_t get_file_length(char *file)
+{
+    init();
+    mpg123_open(mpg_handle, file);
+    off_t length = mpg123_length(mpg_handle);
+    mpg123_close(mpg_handle);
+    return length;
+}
+
+int set_volume(double vol)
+{
+    m_volume = vol;
+    if (mpg_handle != NULL) {
+        return mpg123_volume(mpg_handle, m_volume);
+    } else {
+        return -1;
+    }
+}
 
 void play_music_file(char *file)
 {
@@ -27,7 +47,7 @@ void play_music_file(char *file)
     driver = ao_default_driver_id();
     buffer_size = mpg123_outblock(mpg_handle);
     buffer = (unsigned char* )malloc(buffer_size * sizeof(unsigned char));
-    int r = mpg123_open(mpg_handle, file);
+    mpg123_open(mpg_handle, file);
     mpg123_getformat(mpg_handle, &rate, &channels, &encoding);
 
     format.bits = mpg123_encsize(encoding) * BITS;
@@ -38,6 +58,7 @@ void play_music_file(char *file)
     dev = ao_open_live(driver, &format, NULL);
     mpg123_seek(mpg_handle, 0, SEEK_SET);
 
+    set_volume(m_volume);
 
     while(mpg123_read(mpg_handle, buffer, buffer_size, &done) == MPG123_OK) {
         ao_play(dev, (char *)buffer, done);

@@ -12,6 +12,6 @@ func main() {
 		fmt.Println("usage: mpg123 musicile")
 		os.Exit(-1)
 	}
-
+	mpg123.SetVolume(0.5)
 	mpg123.PlayMusic(args[1])
 }
