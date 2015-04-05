@@ -31,6 +31,16 @@ func SetVolume(volume float64) int {
 	return int(C.set_volume(C.double(volume)))
 }
 
+func GetFileInfo(file string) *C.mpg123_file_Info {
+	musicFile := C.CString(file)
+	defer C.free(unsafe.Pointer(musicFile))
+	return C.get_file_info(musicFile)
+}
+
+func FreeFileInfo(info *C.mpg123_file_Info) {
+	C.free_file_info(info)
+}
+
 //export play_finish
 func play_finish() {
 	done <- 1
