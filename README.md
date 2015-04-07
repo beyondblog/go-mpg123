@@ -1,4 +1,4 @@
-# go-mpg123
+# go-mpg123 [![Build Status](https://travis-ci.org/beyondblog/go-mpg123.svg)](https://travis-ci.org/beyondblog/go-mpg123)
 mpg123 library for Go
 
 # Install 
