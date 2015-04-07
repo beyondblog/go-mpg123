@@ -5,4 +5,4 @@ go:
   - tip
 
 before_install:
-  - sudo apt-get install libmpg libao libconfig
+  - sudo apt-get install libmpg123-dev libao-dev libconfig++-dev -qq > apt-get.out 2>&1 || (cat apt-get.out && exit 1)
