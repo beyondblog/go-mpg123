@@ -9,3 +9,6 @@ before_install:
   - sudo git clone https://github.com/gypified/libmpg123.git 
   - cd libmpg123
   - sudo ./configure && sudo make && sudo make install
+
+install:
+  - go get github.com/beyondblog/go-mpg123
