@@ -5,4 +5,6 @@ go:
   - tip
 
 before_install:
-  - sudo apt-get install libmpg123-dev libao-dev libconfig++-dev -qq > apt-get.out 2>&1 || (cat apt-get.out && exit 1)
+  - sudo apt-get install libmpg123-dev libao-dev make pkg-config -qq > apt-get.out 2>&1 || (cat apt-get.out && exit 1)
+  - sudo git clone https://github.com/gypified/libmpg123.git 
+  - cd libmpg123 && ./configure && make && make install

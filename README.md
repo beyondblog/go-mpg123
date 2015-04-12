@@ -10,7 +10,7 @@ For linux or OSX
 
 or
 
-% apt-get install libmpg libao libconfig
+% apt-get install libmpg123-dev libao-dev 
 
 OSX
 
